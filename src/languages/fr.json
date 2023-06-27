@@ -1,0 +1,30 @@
+{
+    "header": {
+        "menu": [
+          {
+            "name": "Accueil",
+            "link": "/"
+          },
+            {
+                "name": "À propos",
+                "link": "#about"
+            },
+          {
+                "name": "Projets",
+                "link": "#projects"
+            },
+          {
+                "name": "Expérience",
+                "link": "#experience"
+            },
+          {
+                "name": "Contact",
+                "link": "#contact"
+            }
+        ]
+    },
+  "home": {
+    "greeting": "Hey ! Je suis",
+    "about": "Passionné du développement full-stack et maîtrisant les technologies React et .NET, je suis dévoué à la création d'expériences numériques exceptionnelles. Avec un sens aiguisé du design et une expertise en développement web, je donne vie à des interfaces utilisateur fluides. Toujours à l'affût des tendances et des meilleures pratiques de l'industrie, j'adore apprendre de nouvelles technologies pour stimuler l'innovation. Engagé à fournir des solutions de haute qualité, je suis enthousiaste à l'idée de contribuer mes compétences à des équipes qui valorisent l'excellence dans le domaine de l'informatique."
+  }
+}
