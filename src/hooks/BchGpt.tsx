@@ -190,7 +190,7 @@ return (
                         {isHumanbeingChatDisplayDone && !isContactDone && <TypeAnimation ref={chatInputRef} sequence={[1000, speechList[4].question, 1000, () => {setIsContactDone(true)}, 1000]} speed={90}
                                                             className={'inline-block resize w-full chat-input lg:rounded-xl lg:w-11/12 lg:p-4 text-white focus:outline-none'}
                                                             repeat={1}/>}
-                        <button className={'lg:inline-block h-full my-auto mr-4 text-green-600 float-right mx-auto'}>
+                        <button className={'lg:inline-block h-full my-auto mr-4 text-green-600 float-right mx-auto'} aria-label={'Send'}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                             </svg>
