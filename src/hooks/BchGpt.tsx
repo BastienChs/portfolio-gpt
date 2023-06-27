@@ -139,7 +139,7 @@ return (
                 </Dialog.Panel>
             </Dialog>
         </div>
-        <div className={'chat-window w-full lg:flex lg:flex-col lg:items-stretch lg:w-5/6 lg:h-full'}>
+        <div className={'chat-window min-h-screen w-full lg:flex lg:flex-col lg:items-stretch lg:w-5/6 lg:h-full'}>
             <div className="sticky top-0 h-1/12 w-full p-5 bg-black/[.8] z-10 lg:hidden">
                 <div className={'flex'}>
                     <button
@@ -154,7 +154,7 @@ return (
                 </div>
             </div>
             {/*<div className={'chat-body lg:rounded-xl lg:h-3/4 lg:mx-auto lg:w-full overflow-auto scroll-smooth'} id={'chat-body'}>*/}
-            <div className={'chat-body h-1/2 min-h-screen lg:h-3/4 lg:mx-auto lg:w-full lg:min-h-0 overflow-auto scroll-smooth'} id={'chat-body'}>
+            <div className={'chat-body h-3/4 lg:h-3/4 lg:mx-auto lg:w-full lg:min-h-0 overflow-auto scroll-smooth'} id={'chat-body'}>
                 {speechList.length > 0 && (<>
                     <Question id={speechList[0].id} questionString={speechList[0].question} isVisible={isIntroDone}/>
                     <Answer answerString={speechList[0].answer} isVisible={isIntroDone} updateCallbackFunction={updateIntroChatDisplay}/>
@@ -173,7 +173,7 @@ return (
                 </>)}
             </div>
             <div className={'bg-[#343541] chat-footer sticky bottom-0 lg:static lg:bottom-10 w-full lg:h-1/4 lg:w-3/4 lg:mx-auto lg:flex lg:flex-col lg:place-content-end'}>
-                <div className={'chat-bar lg:mx-auto lg:h-fit lg:w-full lg:pb-10'} id={'char-bar'}>
+                <div className={'chat-bar p-4 lg:mx-auto lg:h-fit lg:w-full lg:pb-10'} id={'char-bar'}>
                     <div className={'flex flex-row chat-input lg:rounded-xl relative max-h-5 lg:max-h-fit overflow-auto'} style={{minHeight: '48px'}}>
                         {speechList.length > 0 && !isIntroDone && <TypeAnimation ref={chatInputRef} sequence={[speechList[0].question, 1000, () => {setIsIntroDone(true)},1000]} speed={90}
                                         className={'inline-block resize w-full chat-input lg:rounded-xl lg:w-11/12 lg:p-4 text-white focus:outline-none float-left'}
