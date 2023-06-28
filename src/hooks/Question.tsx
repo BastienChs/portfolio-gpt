@@ -5,7 +5,7 @@ const Question = ({questionString, isVisible, id}: {questionString: string, isVi
       <>
           {
               isVisible ?
-                  <div id={id} className={'w-full text-gray-100 border-b border-gray-900/50 bg-[#343541]'}>
+                  <div id={id} className={'w-full text-gray-800 dark:text-gray-100 border-b border-black/10 dark:border-gray-900/50 bg-white dark:bg-[#343541]'}>
                       <div
                           className={'flex p-4 gap-4 text-base md:gap-6 md:max-w-2xl lg:max-w-[38rem] xl:max-w-3xl md:py-6 lg:px-0 m-auto'}>
                           <HRIcon/>
