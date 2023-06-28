@@ -4,11 +4,12 @@ import React, {useCallback, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import Question from "./Question";
 import Answer from "./Answer";
-import {IconBrandGithub, IconBrandLinkedin, IconMail} from "@tabler/icons-react";
+import {IconBrandGithub, IconBrandLinkedin, IconMail, IconMoon, IconSun} from "@tabler/icons-react";
 import NavLink from "./NavLink";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/20/solid";
 import {Dialog} from "@headlessui/react";
 import NavLinkMobile from "./NavLinkMobile";
+import { motion } from "framer-motion";
 
 const BchGpt = () => {
 const { t } = useTranslation();
@@ -33,6 +34,20 @@ const [isHumanbeingChatDisplayDone, setIsHumanbeingChatDisplayDone] = React.useS
 const [isContactDone, setIsContactDone] = React.useState<boolean>(false);
 const [isContactChatDisplayDone, setIsContactChatDisplayDone] = React.useState<boolean>(false);
 
+const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
+const toggleThemeSwitch = () => {
+    setIsLightTheme(!isLightTheme)
+    if(isLightTheme) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+}
+    const spring = {
+        type: "spring",
+        stiffness: 700,
+        damping: 30
+    };
 useEffect(() => {
     if(speechList.length > 0) return;
     const categoriesUnserialized = t('gptbch.speech', {returnObjects: true}) as ISpeech[];
@@ -68,7 +83,7 @@ useEffect(() => {
 }, [isContactChatDisplayDone]);
 
 return (
-    <div className={'main h-screen w-screen flex flex-col lg:flex-row'}>
+    <div className={'dark:bg-[#343541] h-screen w-screen flex flex-col lg:flex-row'}>
         <div className={'left-menu w-full flex lg:w-1/6 lg:h-full lg:inline-block lg:bg-[#202123]'}>
             <div className={'hidden lg:flex lg:flex-col lg:h-full'}>
                 {/*On top part we will have the name*/}
@@ -76,6 +91,13 @@ return (
                 {/*In body part we will have the listing of category as a list which can be clicked and which scroll to anchor*/}
                 <div className={'lg:flex lg:flex-col lg:h-full lg:justify-between'}>
                     <div className={'lg:mt-10'}>
+                        <div className={'hidden lg:flex lg:flex-row lg:justify-center lg:place-items-center lg:gap-2'}>
+                            <IconMoon className={'h-4 w-4 text-gray-300'} stroke={'currentColor'} strokeWidth={2}/>
+                            <div className={'switch w-12 h-6 bg-white/40 flex justify-start rounded-xl p-1 cursor-pointer'} data-isOn={isLightTheme} onClick={toggleThemeSwitch}>
+                                <motion.div className={'w-4 h-4 bg-white rounded-full'} layout transition={spring} />
+                            </div>
+                            <IconSun className={'h-4 w-4 text-gray-300'} stroke={'currentColor'} strokeWidth={2}/>
+                        </div>
                         <ul className={'lg:text-gray-400 lg:font-bold font-roboto uppercase lg:text-center lg:text-xl lg:pt-5 lg:m-2'}>
                             {isIntroChatDisplayDone && <NavLink id={speechList[0].id} label={'Intro'}/>}
                             {isExperienceChatDisplayDone && <NavLink id={speechList[1].id} label={'Experience'}/>}
@@ -116,6 +138,13 @@ return (
                         <a href="/" className="-m-1.5 p-1.5">
                             <span className={'font-semibold text-white font-xl font-roboto'}>BCH</span>
                         </a>
+                        <div className={'lg:hidden flex flex-row justify-center place-items-center gap-2'}>
+                            <IconMoon className={'h-4 w-4 text-gray-300'} stroke={'currentColor'} strokeWidth={2}/>
+                            <div className={'switch w-12 h-6 bg-white/40 flex justify-start rounded-xl p-1 cursor-pointer'} data-isOn={isLightTheme} onClick={toggleThemeSwitch}>
+                                <motion.div className={'w-4 h-4 bg-white rounded-full'} layout transition={spring} />
+                            </div>
+                            <IconSun className={'h-4 w-4 text-gray-300'} stroke={'currentColor'} strokeWidth={2}/>
+                        </div>
                         <button
                             type="button"
                             className="-m-2.5 rounded-md p-2.5 text-white"
@@ -172,23 +201,23 @@ return (
                     <Answer answerString={speechList[4].answer} isVisible={isContactDone} updateCallbackFunction={updateContactChatDisplay}/>
                 </>)}
             </div>
-            <div className={'bg-[#343541] chat-footer sticky bottom-0 lg:static lg:bottom-10 w-full lg:h-1/4 lg:w-3/4 lg:mx-auto lg:flex lg:flex-col lg:place-content-end'}>
+            <div className={'bg-transparent dark:bg-[#343541] chat-footer sticky bottom-0 lg:static lg:bottom-10 w-full lg:h-1/4 lg:w-3/4 lg:mx-auto lg:flex lg:flex-col lg:place-content-end'}>
                 <div className={'chat-bar p-4 lg:mx-auto lg:h-fit lg:w-full lg:pb-10'} id={'char-bar'}>
-                    <div className={'flex flex-row chat-input lg:rounded-xl relative max-h-5 lg:max-h-fit overflow-auto'} style={{minHeight: '48px'}}>
+                    <div className={'flex flex-row lg:rounded-xl relative max-h-5 lg:max-h-fit overflow-auto border border-black/10 bg-white dark:border-gray-900/50 dark:text-white dark:bg-gray-700 rounded-xl shadow-xs dark:shadow-xs'} style={{minHeight: '48px'}}>
                         {speechList.length > 0 && !isIntroDone && <TypeAnimation ref={chatInputRef} sequence={[speechList[0].question, 1000, () => {setIsIntroDone(true)},1000]} speed={90}
-                                        className={'inline-block resize w-full chat-input lg:rounded-xl lg:w-11/12 lg:p-4 text-white focus:outline-none float-left'}
+                                        className={'inline-block resize w-full lg:rounded-xl lg:w-11/12 lg:p-4 focus:outline-none float-left'}
                                         repeat={1}/>}
                         {isIntroChatDisplayDone && !isExperienceDone && <TypeAnimation ref={chatInputRef} sequence={[1000, speechList[1].question, 1000, () => {setIsExperienceDone(true)}, 1000]} speed={90}
-                                                                 className={'inline-block resize w-full chat-input lg:rounded-xl lg:w-11/12 lg:p-4 text-white focus:outline-none'}
+                                                                 className={'inline-block resize w-full lg:rounded-xl lg:w-11/12 lg:p-4 focus:outline-none'}
                                                                  repeat={1}/>}
                         {isExperienceChatDisplayDone && !isProjectDone && <TypeAnimation ref={chatInputRef} sequence={[1000, speechList[2].question, 1000, () => {setIsProjectDone(true)}, 1000]} speed={90}
-                                                       className={'inline-block resize w-full chat-input lg:rounded-xl lg:w-11/12 lg:p-4 text-white focus:outline-none'}
+                                                       className={'inline-block resize w-full lg:rounded-xl lg:w-11/12 lg:p-4 focus:outline-none'}
                                                        repeat={1}/>}
                         {isProjectChatDisplayDone && !isHumanbeingDone && <TypeAnimation ref={chatInputRef} sequence={[1000, speechList[3].question, 1000, () => {setIsHumanbeingDone(true)}, 1000]} speed={90}
-                                                            className={'inline-block resize w-full chat-input lg:rounded-xl lg:w-11/12 lg:p-4 text-white focus:outline-none'}
+                                                            className={'inline-block resize w-full lg:rounded-xl lg:w-11/12 lg:p-4 focus:outline-none'}
                                                             repeat={1}/>}
                         {isHumanbeingChatDisplayDone && !isContactDone && <TypeAnimation ref={chatInputRef} sequence={[1000, speechList[4].question, 1000, () => {setIsContactDone(true)}, 1000]} speed={90}
-                                                            className={'inline-block resize w-full chat-input lg:rounded-xl lg:w-11/12 lg:p-4 text-white focus:outline-none'}
+                                                            className={'inline-block resize w-full lg:rounded-xl lg:w-11/12 lg:p-4 focus:outline-none'}
                                                             repeat={1}/>}
                         <button className={'lg:inline-block h-full my-auto mr-4 text-green-600 float-right mx-auto'} aria-label={'Send'}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
